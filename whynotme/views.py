@@ -36,13 +36,6 @@ class UserLogViewSet(viewsets.ModelViewSet):
     queryset = UserLog.objects.all()
     serializer_class = UserLogSerializer
 
-
-class TestViewSet(viewsets.ModelViewSet):
-    queryset = Test.objects.all()
-    serializer_class = TestSerializer
-
-
-
 class FilteredUserLogListView(generics.ListAPIView):
     queryset = UserLog.objects.all()
     serializer_class = UserLogSerializer
