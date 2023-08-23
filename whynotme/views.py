@@ -44,3 +44,15 @@ class FilteredUserLogListView(generics.ListAPIView):
         user_id = self.kwargs['user_id']
         queryset = UserLog.objects.filter(user_id=user_id)
         return queryset
+
+class SchoolViewSet(viewsets.ModelViewSet):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class GameViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer

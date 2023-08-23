@@ -7,6 +7,8 @@ router = routers.DefaultRouter()
 # router.register(r'user/<int:pk>/posts/', )
 router.register(r'users', UserViewSet)
 router.register(r'user-logs', UserLogViewSet)
+router.register(r'schools', SchoolViewSet)
+router.register(r'games', GameViewSet)
 
 
 
