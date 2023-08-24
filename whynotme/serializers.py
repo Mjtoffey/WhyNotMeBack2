@@ -36,11 +36,6 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = School
         fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
-
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
