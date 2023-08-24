@@ -9,12 +9,15 @@ from rest_framework.decorators import action
 from .models import *
 from .serializers import *
 from django.db.models import Sum
+import logging
 
 class UserCreate(APIView):
+    logging.info('here')
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
+        logging.info('serializer: {serializer}')
         if serializer.is_valid():
             user = serializer.save()
             if user:
