@@ -12,12 +12,10 @@ from django.db.models import Sum
 import logging
 
 class UserCreate(APIView):
-    logging.info('here')
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
-        logging.info('serializer: {serializer}')
         if serializer.is_valid():
             user = serializer.save()
             if user:
@@ -43,10 +41,6 @@ class FilteredUserLogListView(generics.ListAPIView):
         queryset = UserLog.objects.filter(user_id=user_id)
         return queryset
 
-class SchoolViewSet(viewsets.ModelViewSet):
-    queryset = School.objects.all()
-    serializer_class = SchoolSerializer
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -54,3 +48,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer

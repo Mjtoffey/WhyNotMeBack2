@@ -6,12 +6,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True
     )
-    username = serializers.CharField()
     password = serializers.CharField(min_length=8, write_only=True)
     
     class Meta:
-        model = User
-        fields = ('email', 'password', 'first_name', 'last_name', 'username')   
+        model = CustomUser
+        fields = ('email', 'username', 'password', 'first_name', 'last_name')
         extra_kwargs = {'password': {'write_only': True}}
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -31,12 +30,12 @@ class UserLogSerializer(serializers.ModelSerializer):
         model = UserLog
         fields = '__all__'
 
-class SchoolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = School
-        fields = '__all__'
-
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
+        fields = '__all__'
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
         fields = '__all__'
