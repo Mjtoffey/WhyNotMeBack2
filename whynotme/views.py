@@ -9,21 +9,26 @@ from rest_framework.decorators import action
 from .models import *
 from .serializers import *
 from django.db.models import Sum
-import logging
 
 class UserCreate(APIView):
-    logging.info('here')
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
     def post(self, request, format='json'):
-        serializer = CustomUserSerializer(data=request.data)
-        logging.info('serializer: {serializer}')
-        if serializer.is_valid():
-            user = serializer.save()
+        custom_serializer = CustomUserSerializer(data=request.data)
+        user_serializer = UserSerializer(data=request.data)
+        
+        if custom_serializer.is_valid():
+            custom_serializer.save()
+        else:
+            return Response(custom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        if user_serializer.is_valid():
+            user = user_serializer.save()
             if user:
-                json = serializer.data
-                return Response(json, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": "success"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "unknown error"}, status=status.HTTP_400_BAD_REQUEST)
     
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
