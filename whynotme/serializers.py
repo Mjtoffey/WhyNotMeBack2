@@ -10,7 +10,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomUser
+<<<<<<< HEAD
         fields = ('email', 'username', 'password', 'first_name', 'last_name')
+=======
+        fields = ('email', 'password', 'first_name', 'last_name', 'username')   
+>>>>>>> origin/fix/get-this-working
         extra_kwargs = {'password': {'write_only': True}}
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -24,6 +28,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+    
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 
 class UserLogSerializer(serializers.ModelSerializer):
     class Meta:
