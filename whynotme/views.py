@@ -14,28 +14,13 @@ class UserCreate(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
     def post(self, request, format='json'):
-<<<<<<< HEAD
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-=======
         custom_serializer = CustomUserSerializer(data=request.data)
-        user_serializer = UserSerializer(data=request.data)
         
         if custom_serializer.is_valid():
             custom_serializer.save()
-        else:
-            return Response(custom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        if user_serializer.is_valid():
-            user = user_serializer.save()
->>>>>>> origin/fix/get-this-working
-            if user:
-                return Response({"message": "success"}, status=status.HTTP_201_CREATED)
-        else:
-            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"message": "unknown error"}, status=status.HTTP_400_BAD_REQUEST)
-    
+            return Response(custom_serializer.data, status=status.HTTP_200_OK)
+        return Response(custom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+           
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = CustomUser.objects.all()
