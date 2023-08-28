@@ -7,7 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 # router.register(r'user/<int:pk>/posts/', )
 router.register(r'users', UserViewSet)
-router.register(r'games', GameViewSet)
+# router.register(r'games', GameViewSet)
 
 
 
@@ -19,6 +19,7 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('edit-profile', UserViewSet.as_view({'get': 'list'}), name="edit-profile"),
+    path('games/', GameViewSet.as_view(), name="create_game")
     # path('games/<int:user_id>/', GameViewSet.as_view({'get': 'list'}), name="games"),
     # path('api/', include(router.urls)),
 ]

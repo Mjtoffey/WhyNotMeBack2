@@ -11,6 +11,7 @@ from .serializers import *
 from django.db.models import Sum
 
 
+
 class UserCreate(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
@@ -31,7 +32,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     
-class GameViewSet(viewsets.ModelViewSet):
+class GameViewSet(generics.ListCreateAPIView):
+    @classmethod
+    def get_extra_actions(cls):
+        return []
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     def post(self, request, format='json'):
