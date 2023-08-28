@@ -27,6 +27,32 @@ class UserDetail(generics.RetrieveAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    
+class GameViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+    def post(self, request, format='json'):
+        game_serializer = GameSerializer(data=request.data)
+        
+        if game_serializer.is_valid():
+            game_serializer.save()
+            return Response(game_serializer.data, status=status.HTTP_200_OK)
+        return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def get_games(self):
+    #     user_id = self.kwargs['user_id']
+    #     queryset = GameViewSet.objects.filter(user_id=user_id)
+    #     return queryset
+# class UserProfileViewSet(viewsets.ModelViewSet):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
+
+# class GameUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Game
+#         exclude = ('user',)
 # class UserLogViewSet(viewsets.ModelViewSet):
 #     queryset = UserLog.objects.all()
 #     serializer_class = UserLogSerializer
@@ -44,10 +70,7 @@ class UserDetail(generics.RetrieveAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = CustomUserSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
-    # def post(self, request, format='json'):
+# def post(self, request, format='json'):
     #     user_serializer = UserSerializer(data=request.data)
         
     #     if user_serializer.is_valid():
@@ -58,25 +81,3 @@ class UserViewSet(viewsets.ModelViewSet):
     #     user_id = self.kwargs['user_id']
     #     queryset = UserViewSet.objects.filter(user_id=user_id)
     #     return queryset
-class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.all()
-    serializer_class = GameSerializer
-    # def post(self, request, format='json'):
-    #     game_serializer = GameSerializer(data=request.data)
-        
-    #     if game_serializer.is_valid():
-    #         game_serializer.save()
-    #         return Response(game_serializer.data, status=status.HTTP_200_OK)
-    #     return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # def get_games(self):
-    #     user_id = self.kwargs['user_id']
-    #     queryset = GameViewSet.objects.filter(user_id=user_id)
-    #     return queryset
-# class UserProfileViewSet(viewsets.ModelViewSet):
-#     queryset = UserProfile.objects.all()
-#     serializer_class = UserProfileSerializer
-
-# class GameUpdateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Game
-#         exclude = ('user',)

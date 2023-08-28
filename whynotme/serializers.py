@@ -38,6 +38,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class GameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = '__all__'
+
+# class UserProfileSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = UserProfile
+#         fields = '__all__'
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = User
@@ -52,14 +61,4 @@ class CustomUserSerializer(serializers.ModelSerializer):
 # class UserLogSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = UserLog
-#         fields = '__all__'
-
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Game
-        fields = '__all__'
-
-# class UserProfileSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = UserProfile
 #         fields = '__all__'
