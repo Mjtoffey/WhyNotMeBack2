@@ -7,18 +7,18 @@ from . import views
 router = routers.DefaultRouter()
 # router.register(r'user/<int:pk>/posts/', )
 router.register(r'users', UserViewSet)
-router.register(r'user-logs', UserLogViewSet)
 router.register(r'games', GameViewSet)
-router.register(r'users', UserProfileViewSet)
+
 
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('user-log/<int:user_id>/', FilteredUserLogListView.as_view(), name='filtered_user_logs'),
     path('user/signup/', UserCreate.as_view(), name="create_user"),
     path('huh/<int:pk>/', UserDetail.as_view(), name="get_user_details"),
     path('user/login/', jwt_views.TokenObtainPairView.as_view(), name='token_create'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/', include(router.urls))
+    path('edit-profile', UserViewSet.as_view({'get': 'list'}), name="edit-profile"),
+    # path('games/<int:user_id>/', GameViewSet.as_view({'get': 'list'}), name="games"),
+    # path('api/', include(router.urls)),
 ]
